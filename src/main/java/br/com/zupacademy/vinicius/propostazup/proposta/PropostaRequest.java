@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import br.com.zupacademy.vinicius.propostazup.compartilhado.CPFOrCNPJ;
+import br.com.zupacademy.vinicius.propostazup.compartilhado.validacoes.CPFOrCNPJ;
 
 public class PropostaRequest {
 
@@ -32,5 +32,9 @@ public class PropostaRequest {
 
 	public Proposta toModel() {
 		return new Proposta(documento, email, endereco, salario);
+	}
+
+	public String getDocumento() {
+		return documento;
 	}
 }

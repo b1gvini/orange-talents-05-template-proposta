@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.propostazup.compartilhado;
+package br.com.zupacademy.vinicius.propostazup.compartilhado.validacoes;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

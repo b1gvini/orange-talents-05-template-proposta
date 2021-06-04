@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,4 +35,12 @@ public class ErroHandler {
 
 		return dto;
 	}
+
+	@ExceptionHandler(ExcecaoGenerica.class)
+	public ResponseEntity<?> handleGenerico(ExcecaoGenerica exception) {
+		HttpStatus status = exception.getStatus();
+		ErroDTO erro = new ErroDTO(exception.getMessage());
+		return ResponseEntity.status(status).body(erro);
+	}
+
 }
