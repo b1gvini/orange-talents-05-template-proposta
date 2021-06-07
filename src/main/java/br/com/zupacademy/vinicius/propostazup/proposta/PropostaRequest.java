@@ -14,6 +14,8 @@ public class PropostaRequest {
 	@CPFOrCNPJ
 	@NotBlank
 	private String documento;
+	@NotBlank
+	private String nome;
 	@Email
 	@NotBlank
 	private String email;
@@ -23,15 +25,16 @@ public class PropostaRequest {
 	@Positive
 	private BigDecimal salario;
 
-	public PropostaRequest(String documento, String email, String endereco, BigDecimal salario) {
+	public PropostaRequest(String documento, String nome, String email, String endereco, BigDecimal salario) {
 		this.documento = documento;
+		this.nome = nome;
 		this.email = email;
 		this.endereco = endereco;
 		this.salario = salario;
 	}
 
 	public Proposta toModel() {
-		return new Proposta(documento, email, endereco, salario);
+		return new Proposta(documento, nome, email, endereco, salario);
 	}
 
 	public String getDocumento() {
