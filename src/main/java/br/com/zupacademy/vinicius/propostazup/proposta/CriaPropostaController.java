@@ -17,10 +17,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.zupacademy.vinicius.propostazup.apisexternas.AnaliseFinanceiro;
-import br.com.zupacademy.vinicius.propostazup.apisexternas.AnaliseRequest;
-import br.com.zupacademy.vinicius.propostazup.apisexternas.AnaliseResponse;
 import br.com.zupacademy.vinicius.propostazup.compartilhado.excecoes.ExcecaoGenerica;
+import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseProposta;
+import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseRequest;
+import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseResponse;
 import feign.FeignException.UnprocessableEntity;
 
 @RestController
@@ -30,7 +30,7 @@ public class CriaPropostaController {
 	private PropostaRepository repository;
 
 	@Autowired
-	private AnaliseFinanceiro analiseFinanceiro;
+	private AnaliseProposta analiseFinanceiro;
 
 	@PostMapping("/propostas")
 	ResponseEntity<?> criaProposta(@RequestBody @Valid PropostaRequest request,

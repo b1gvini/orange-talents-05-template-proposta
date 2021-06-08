@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.propostazup.apisexternas;
+package br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta;
 
 import br.com.zupacademy.vinicius.propostazup.proposta.Proposta;
 

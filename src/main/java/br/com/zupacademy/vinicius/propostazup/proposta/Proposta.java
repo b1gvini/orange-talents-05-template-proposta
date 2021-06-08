@@ -3,15 +3,20 @@ package br.com.zupacademy.vinicius.propostazup.proposta;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import br.com.zupacademy.vinicius.propostazup.feignclients.associacartao.Cartao;
 
 @Entity
 public class Proposta {
@@ -27,12 +32,17 @@ public class Proposta {
 	private @NotNull BigDecimal salario;
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
-	@Deprecated
-	public Proposta() {}
 
-	public Proposta(@NotBlank String documento, @NotBlank String nome, @Email @NotBlank String email, @NotBlank String endereco,
-			@NotNull BigDecimal salario) {
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(unique = true)
+	private Cartao cartao;
+
+	@Deprecated
+	public Proposta() {
+	}
+
+	public Proposta(@NotBlank String documento, @NotBlank String nome, @Email @NotBlank String email,
+			@NotBlank String endereco, @NotNull BigDecimal salario) {
 		this.documento = documento;
 		this.nome = nome;
 		this.email = email;
@@ -52,8 +62,37 @@ public class Proposta {
 	public String getDocumento() {
 		return documento;
 	}
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public BigDecimal getSalario() {
+		return salario;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public Cartao getCartao() {
+		return cartao;
+	}
+
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public void setCartao(Cartao cartao) {
+		this.cartao = cartao;
+	}
+
 }

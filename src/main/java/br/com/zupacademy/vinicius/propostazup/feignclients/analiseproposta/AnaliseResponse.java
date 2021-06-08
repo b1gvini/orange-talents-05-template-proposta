@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.propostazup.apisexternas;
+package br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta;
 
 public class AnaliseResponse {
 
