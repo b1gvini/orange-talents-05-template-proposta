@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import br.com.zupacademy.vinicius.propostazup.cartao.Cartao;
 import br.com.zupacademy.vinicius.propostazup.proposta.Proposta;
 import br.com.zupacademy.vinicius.propostazup.proposta.PropostaRepository;
 import feign.FeignException;
@@ -28,7 +29,7 @@ public class BuscaAgendadaCartao {
 		List<Proposta> propostasElegiveis = propostaRepository.findTodasElegiveis();
 		for (Proposta proposta : propostasElegiveis) {
 			try {
-				CartaoResponse cartaoResponse = associaCartao.consultaCartao(proposta.getUuid());
+				AssociaCartaoResponse cartaoResponse = associaCartao.consultaCartao(proposta.getUuid());
 				Cartao cartao = cartaoResponse.toModel();
 				proposta.setCartao(cartao);
 				propostaRepository.save(proposta);

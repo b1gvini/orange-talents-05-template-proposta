@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.propostazup.feignclients.associacartao;
+package br.com.zupacademy.vinicius.propostazup.cartao;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface AssociaCartao {
 
 	@RequestMapping(method = RequestMethod.GET, path = "${api.busca.cartao}?idProposta={idProposta}")
-	CartaoResponse consultaCartao(@PathVariable("idProposta") String idProposta);
+	AssociaCartaoResponse consultaCartao(@PathVariable("idProposta") String idProposta);
 }

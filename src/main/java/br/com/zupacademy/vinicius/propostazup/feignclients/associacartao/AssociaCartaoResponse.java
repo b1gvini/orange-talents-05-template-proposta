@@ -3,17 +3,19 @@ package br.com.zupacademy.vinicius.propostazup.feignclients.associacartao;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class CartaoResponse {
+import br.com.zupacademy.vinicius.propostazup.cartao.Cartao;
+
+public class AssociaCartaoResponse {
 
 	private String id;
 	private LocalDateTime emitidoEm;
 	private String titular;
 	private BigDecimal limite;
-	private VencimentoResponse vencimento;
+	private AssociaCartaoVencimentoResponse vencimento;
 	private String idProposta;
 
-	public CartaoResponse(String id, LocalDateTime emitidoEm, String titular, BigDecimal limite,
-			VencimentoResponse vencimento, String idProposta) {
+	public AssociaCartaoResponse(String id, LocalDateTime emitidoEm, String titular, BigDecimal limite,
+			AssociaCartaoVencimentoResponse vencimento, String idProposta) {
 		this.id = id;
 		this.emitidoEm = emitidoEm;
 		this.titular = titular;
@@ -38,7 +40,7 @@ public class CartaoResponse {
 		return limite;
 	}
 
-	public VencimentoResponse getVencimento() {
+	public AssociaCartaoVencimentoResponse getVencimento() {
 		return vencimento;
 	}
 

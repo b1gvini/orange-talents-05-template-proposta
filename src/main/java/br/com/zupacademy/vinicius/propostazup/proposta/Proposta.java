@@ -16,7 +16,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import br.com.zupacademy.vinicius.propostazup.feignclients.associacartao.Cartao;
+import br.com.zupacademy.vinicius.propostazup.cartao.Cartao;
 
 @Entity
 public class Proposta {
