@@ -39,13 +39,28 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: propostadb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
-      MYSQL_ROOT_HOST: "%"
     ports:
       - 3306:3306
     volumes:
       - mysql-volume:/var/lib/mysql
+
+  proposta:
+    container_name: proposta
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    environment:
+      API_PROPOSTA: "http://analise:9999"
+      API_CARTAO: "http://contas:8888"
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+    depends_on:
+      - mysql
+      - analise
+      - contas
+    restart: always
+    ports:
+      - 8080:8080
 
   keycloak:
     image: jboss/keycloak
@@ -146,7 +161,7 @@ services:
       VAULT_DEV_ROOT_TOKEN_ID: ee413645-dbe8-4848-afc6-6bb2768ada75
       VAULT_TOKEN: ee413645-dbe8-4848-afc6-6bb2768ada75
       VAULT_ADDR: http://127.0.0.1:8200
-
+  
 volumes:
   grafana-volume:
   prometheus-volume:
