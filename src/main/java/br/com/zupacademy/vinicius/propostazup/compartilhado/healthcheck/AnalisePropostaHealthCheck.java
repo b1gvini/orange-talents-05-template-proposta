@@ -4,14 +4,9 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-
-import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseProposta;
-import feign.FeignException;
 
 @Component
 public class AnalisePropostaHealthCheck implements HealthIndicator {
@@ -25,7 +20,7 @@ public class AnalisePropostaHealthCheck implements HealthIndicator {
         } catch (Exception e) {
             return Health.down().withDetail("error", e.getMessage()).build();
         }
-        return Health.up().build();
+        return Health.up().withDetails(details).build();
     }
 }
 
