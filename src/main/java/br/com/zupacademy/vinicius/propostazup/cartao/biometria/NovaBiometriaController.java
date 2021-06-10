@@ -1,5 +1,6 @@
 package br.com.zupacademy.vinicius.propostazup.cartao.biometria;
 
+import java.net.URI;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -17,22 +18,25 @@ import br.com.zupacademy.vinicius.propostazup.cartao.CartaoRepository;
 
 @RestController
 public class NovaBiometriaController {
-	
+
 	@Autowired
 	private BiometriaRepository biometriaRepository;
-	
+
 	@Autowired
 	private CartaoRepository cartaoRepository;
 
 	@PostMapping("cartoes/{uuid}/biometrias")
-	public ResponseEntity<?> cadastrar(@PathVariable("uuid") String uuid, @RequestBody @Valid BiometriaRequest request, UriComponentsBuilder builder){
+	public ResponseEntity<?> cadastrar(@PathVariable("uuid") String uuid, @RequestBody @Valid BiometriaRequest request,
+			UriComponentsBuilder builder) {
 		Optional<Cartao> cartao = cartaoRepository.findByUuid(uuid);
-		if(cartao.isEmpty()) {
+		if (cartao.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		Biometria biometria = request.toModel(cartao.get());
 		biometriaRepository.save(biometria);
-		return ResponseEntity.ok().build();
+		
+		URI uriLocation = builder.path("/cartoes/{uuid}/biometrias/{uuidBio}").build(cartao.get().getUuid(), biometria.getUuid());
+		return ResponseEntity.created(uriLocation).build();
 		
 	}
 }

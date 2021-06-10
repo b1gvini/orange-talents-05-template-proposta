@@ -31,4 +31,8 @@ public class Biometria {
 		this.uuid = UUID.randomUUID().toString();
 	}
 
+	public String getUuid() {
+		return uuid;
+	}
+
 }
