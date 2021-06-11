@@ -6,15 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import br.com.zupacademy.vinicius.propostazup.cartao.biometria.Biometria;
+import br.com.zupacademy.vinicius.propostazup.cartao.bloqueio.BloqueioCartao;
 import br.com.zupacademy.vinicius.propostazup.proposta.Proposta;
 
 @Entity
@@ -34,8 +39,13 @@ public class Cartao {
 	@NotNull
 	private int vencimento;
 	
+	@Enumerated(EnumType.STRING)
+	private StatusCartao status = StatusCartao.NAO_BLOQUEADO;
+	
 	@OneToMany(mappedBy = "cartao")
 	private List<Biometria> biometrias = new ArrayList<>();
+	@OneToMany(mappedBy = "cartao", cascade = CascadeType.ALL)
+	private List<BloqueioCartao> bloqueios = new ArrayList<>();
 	
 	@Deprecated
 	public Cartao() {
@@ -73,6 +83,19 @@ public class Cartao {
 	
 	public String getUuid() {
 		return uuid;
+	}
+
+	public void bloqueia(String ipAddress, String userAgent) {
+		this.status = StatusCartao.BLOQUEADO;
+		addBloqueio(new BloqueioCartao(ipAddress, userAgent, this));
+	}
+	
+	private void addBloqueio(BloqueioCartao bloqueio) {
+		bloqueios.add(bloqueio);
+	}
+	
+	public boolean estaBloqueado() {
+		return status.equals(StatusCartao.BLOQUEADO);
 	}
 
 }

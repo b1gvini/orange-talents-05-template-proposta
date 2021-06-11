@@ -15,6 +15,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
-			.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+			.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt); // essa linha configura nossa aplicaçãoa como resource server.
 	}
 }
