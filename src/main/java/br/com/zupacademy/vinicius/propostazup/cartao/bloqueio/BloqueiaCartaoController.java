@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.propostazup.cartao;
+package br.com.zupacademy.vinicius.propostazup.cartao.bloqueio;
 
 import java.util.Optional;
 
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.zupacademy.vinicius.propostazup.cartao.Cartao;
+import br.com.zupacademy.vinicius.propostazup.cartao.CartaoRepository;
 import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.ApiCartaoFeignClient;
 import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.bloqueiocartao.BloqueioCartaoFeignRequest;
 import feign.FeignException;

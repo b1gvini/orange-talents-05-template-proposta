@@ -20,6 +20,7 @@ import javax.validation.constraints.Positive;
 
 import br.com.zupacademy.vinicius.propostazup.cartao.biometria.Biometria;
 import br.com.zupacademy.vinicius.propostazup.cartao.bloqueio.BloqueioCartao;
+import br.com.zupacademy.vinicius.propostazup.cartao.viagem.AvisoDeViagem;
 import br.com.zupacademy.vinicius.propostazup.proposta.Proposta;
 
 @Entity
