@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.zupacademy.vinicius.propostazup.compartilhado.excecoes.ExcecaoGenerica;
 import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnalisePropostaFeignClient;
+import br.com.zupacademy.vinicius.propostazup.metricas.MetricasPropostas;
 import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseFeignRequest;
 import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseFeignResponse;
 import feign.FeignException.UnprocessableEntity;
@@ -31,6 +32,9 @@ public class CriaPropostaController {
 
 	@Autowired
 	private AnalisePropostaFeignClient analiseFinanceiro;
+	
+	@Autowired
+	private MetricasPropostas metricas;
 
 	@PostMapping("/propostas")
 	ResponseEntity<?> criaProposta(@RequestBody @Valid PropostaRequest request,
@@ -44,6 +48,7 @@ public class CriaPropostaController {
 
 		Proposta proposta = request.toModel();
 		repository.save(proposta);
+		metricas.incrementa();
 
 		// Elegível codigo 2**, Ñ elegível código 422.
 		validaPropostaComServidorExterno(proposta);
