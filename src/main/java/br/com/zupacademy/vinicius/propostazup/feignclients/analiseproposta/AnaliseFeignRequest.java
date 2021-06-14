@@ -2,13 +2,13 @@ package br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta;
 
 import br.com.zupacademy.vinicius.propostazup.proposta.Proposta;
 
-public class AnaliseRequest {
+public class AnaliseFeignRequest {
 
 	private String nome;
 	private String documento;
 	private String idProposta;
 	
-	public AnaliseRequest(Proposta proposta) {
+	public AnaliseFeignRequest(Proposta proposta) {
 		this.nome = proposta.getNome();
 		this.documento = proposta.getDocumento();
 		this.idProposta = proposta.getUuid();

@@ -1,14 +1,14 @@
-package br.com.zupacademy.vinicius.propostazup.feignclients.associacartao;
+package br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.associacartao;
 
 import java.time.LocalDateTime;
 
-public class AssociaCartaoVencimentoResponse {
+public class AssociaCartaoVencimentoFeignResponse {
 
 	private String id;
 	private int dia;
 	private LocalDateTime dataDeCriacao;
 
-	public AssociaCartaoVencimentoResponse(String id, int dia, LocalDateTime dataDeCriacao) {
+	public AssociaCartaoVencimentoFeignResponse(String id, int dia, LocalDateTime dataDeCriacao) {
 		this.id = id;
 		this.dia = dia;
 		this.dataDeCriacao = dataDeCriacao;

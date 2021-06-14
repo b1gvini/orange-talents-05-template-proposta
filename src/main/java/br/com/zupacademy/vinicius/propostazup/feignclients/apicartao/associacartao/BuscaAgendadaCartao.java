@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.propostazup.feignclients.associacartao;
+package br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.associacartao;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import br.com.zupacademy.vinicius.propostazup.cartao.Cartao;
+import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.ApiCartaoFeignClient;
 import br.com.zupacademy.vinicius.propostazup.proposta.Proposta;
 import br.com.zupacademy.vinicius.propostazup.proposta.PropostaRepository;
 import feign.FeignException;
@@ -17,7 +18,7 @@ import feign.FeignException;
 public class BuscaAgendadaCartao {
 	
 	@Autowired
-	private AssociaCartao associaCartao;
+	private ApiCartaoFeignClient associaCartao;
 	
 	@Autowired
 	private PropostaRepository propostaRepository;
@@ -29,7 +30,7 @@ public class BuscaAgendadaCartao {
 		List<Proposta> propostasElegiveis = propostaRepository.findTodasElegiveis();
 		for (Proposta proposta : propostasElegiveis) {
 			try {
-				AssociaCartaoResponse cartaoResponse = associaCartao.consultaCartao(proposta.getUuid());
+				AssociaCartaoFeignResponse cartaoResponse = associaCartao.consultaCartao(proposta.getUuid());
 				Cartao cartao = cartaoResponse.toModel();
 				proposta.setCartao(cartao);
 				propostaRepository.save(proposta);

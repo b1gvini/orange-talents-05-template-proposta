@@ -18,9 +18,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.zupacademy.vinicius.propostazup.compartilhado.excecoes.ExcecaoGenerica;
-import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseProposta;
-import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseRequest;
-import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseResponse;
+import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnalisePropostaFeignClient;
+import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseFeignRequest;
+import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseFeignResponse;
 import feign.FeignException.UnprocessableEntity;
 
 @RestController
@@ -30,7 +30,7 @@ public class CriaPropostaController {
 	private PropostaRepository repository;
 
 	@Autowired
-	private AnaliseProposta analiseFinanceiro;
+	private AnalisePropostaFeignClient analiseFinanceiro;
 
 	@PostMapping("/propostas")
 	ResponseEntity<?> criaProposta(@RequestBody @Valid PropostaRequest request,
@@ -57,12 +57,12 @@ public class CriaPropostaController {
 	private void validaPropostaComServidorExterno(Proposta proposta)
 			throws JsonMappingException, JsonProcessingException {
 		try {
-			analiseFinanceiro.verifica(new AnaliseRequest(proposta));
+			analiseFinanceiro.verifica(new AnaliseFeignRequest(proposta));
 			proposta.setStatus(Status.ELEGIVEL);
 
 		} catch (UnprocessableEntity ex) {
 			String conteudo = ex.contentUTF8();
-			AnaliseResponse response = new ObjectMapper().readValue(conteudo, AnaliseResponse.class);
+			AnaliseFeignResponse response = new ObjectMapper().readValue(conteudo, AnaliseFeignResponse.class);
 			if (response.getResultadoSolicitacao().equals("COM_RESTRICAO")) {
 				proposta.setStatus(Status.NAO_ELEGIVEL);
 			}

@@ -1,21 +1,21 @@
-package br.com.zupacademy.vinicius.propostazup.feignclients.associacartao;
+package br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.associacartao;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import br.com.zupacademy.vinicius.propostazup.cartao.Cartao;
 
-public class AssociaCartaoResponse {
+public class AssociaCartaoFeignResponse {
 
 	private String id;
 	private LocalDateTime emitidoEm;
 	private String titular;
 	private BigDecimal limite;
-	private AssociaCartaoVencimentoResponse vencimento;
+	private AssociaCartaoVencimentoFeignResponse vencimento;
 	private String idProposta;
 
-	public AssociaCartaoResponse(String id, LocalDateTime emitidoEm, String titular, BigDecimal limite,
-			AssociaCartaoVencimentoResponse vencimento, String idProposta) {
+	public AssociaCartaoFeignResponse(String id, LocalDateTime emitidoEm, String titular, BigDecimal limite,
+			AssociaCartaoVencimentoFeignResponse vencimento, String idProposta) {
 		this.id = id;
 		this.emitidoEm = emitidoEm;
 		this.titular = titular;
@@ -40,7 +40,7 @@ public class AssociaCartaoResponse {
 		return limite;
 	}
 
-	public AssociaCartaoVencimentoResponse getVencimento() {
+	public AssociaCartaoVencimentoFeignResponse getVencimento() {
 		return vencimento;
 	}
 

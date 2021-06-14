@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(name = "analiseProposta", url = "${api.proposta}")
-public interface AnaliseProposta {
+public interface AnalisePropostaFeignClient {
 
 	@RequestMapping(method = RequestMethod.POST, value = "${api.proposta.solicitacao}")
-	AnaliseResponse verifica(AnaliseRequest request);
+	AnaliseFeignResponse verifica(AnaliseFeignRequest request);
 	
 	
 }
