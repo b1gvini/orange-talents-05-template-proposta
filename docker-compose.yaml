@@ -44,23 +44,23 @@ services:
     volumes:
       - mysql-volume:/var/lib/mysql
 
-  proposta:
-    container_name: proposta
-    build:
-      dockerfile: ./Dockerfile
-      context: .
-    environment:
-      API_PROPOSTA: "http://analise:9999"
-      API_CARTAO: "http://contas:8888"
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-    depends_on:
-      - mysql
-      - analise
-      - contas
-    restart: always
-    ports:
-      - 8080:8080
+#  proposta:
+#    container_name: proposta
+#    build:
+#      dockerfile: ./Dockerfile
+#      context: .
+#    environment:
+#      API_PROPOSTA: "http://analise:9999"
+#      API_CARTAO: "http://contas:8888"
+#      MYSQL_HOST: mysql
+#      MYSQL_USER: root
+#   depends_on:
+#      - mysql
+#      - analise
+#      - contas
+#    restart: always
+#    ports:
+#      - 8080:8080
 
   keycloak:
     image: jboss/keycloak

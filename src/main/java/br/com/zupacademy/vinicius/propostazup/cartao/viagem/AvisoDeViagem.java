@@ -38,5 +38,13 @@ public class AvisoDeViagem {
 		this.ipAddress = ipAddress;
 		this.userAgent = userAgent;
 	}
+	
+	public LocalDate getTerminoViagem() {
+		return terminoViagem;
+	}
+	
+	public String getDestinoViagem() {
+		return destinoViagem;
+	}
 
 }

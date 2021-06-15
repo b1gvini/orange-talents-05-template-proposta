@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zupacademy.vinicius.propostazup.cartao.Cartao;
 import br.com.zupacademy.vinicius.propostazup.cartao.CartaoRepository;
+import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.ApiCartaoFeignClient;
+import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.avisoviagem.AvisoDeViagemFeignRequest;
+import feign.FeignException;
 
 @RestController
 public class NovoAvisoDeViagemController {
@@ -27,6 +30,9 @@ public class NovoAvisoDeViagemController {
 	
 	@Autowired
 	private AvisoDeViagemRepository viagemRepository;
+	
+	@Autowired
+	private ApiCartaoFeignClient apiCartao;
 
 	@PostMapping("/cartoes/{uuid}/viagens")
 	public ResponseEntity<?> cadastrar(@PathVariable("uuid") String uuid, @RequestBody @Valid AvisoDeViagemRequest request, HttpServletRequest http){
@@ -39,8 +45,14 @@ public class NovoAvisoDeViagemController {
 		String ipAddress = http.getRemoteAddr();
 		String userAgent = http.getHeader("User-Agent");
 		AvisoDeViagem viagem = request.toModel(ipAddress, userAgent, cartao);
-		viagemRepository.save(viagem);
-		return ResponseEntity.ok().build();
+		AvisoDeViagemFeignRequest feignRequest = new AvisoDeViagemFeignRequest(viagem.getDestinoViagem(), viagem.getTerminoViagem());
+		try {
+			apiCartao.avisaViagem(cartao.getId(),feignRequest);
+			viagemRepository.save(viagem);
+			return ResponseEntity.ok().build();
+		} catch (FeignException e) {
+			return ResponseEntity.unprocessableEntity().build();
+		}
 		
 	}
 }
