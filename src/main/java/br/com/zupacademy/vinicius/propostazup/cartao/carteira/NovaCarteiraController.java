@@ -39,6 +39,12 @@ public class NovaCarteiraController {
 		}
 		Cartao cartao = possivelCartao.get();
 		Carteira carteira = request.toModel(cartao);
+			
+		Optional<Carteira> existeCarteira = carteiraRepository.findByCarteiraAndCartaoId(carteira.getCarteira(), carteira.getCartao().getId());
+		if(existeCarteira.isPresent()) {
+			return ResponseEntity.unprocessableEntity().build();
+		}
+		
 		AssociaCarteiraFeignRequest requestFeign = new AssociaCarteiraFeignRequest(cartao.getId(), carteira.getCarteira().toString());
 		try{
 			apiCartao.associaCarteira(cartao.getId(), requestFeign);

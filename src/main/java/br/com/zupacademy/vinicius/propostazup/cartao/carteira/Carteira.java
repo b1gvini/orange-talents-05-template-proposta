@@ -25,6 +25,11 @@ public class Carteira {
 
 	@ManyToOne
 	private Cartao cartao;
+	
+	@Deprecated
+	public Carteira() {
+		
+	}
 
 	public Carteira(@Email @NotBlank String email, TipoCarteira carteira, Cartao cartao) {
 		this.email = email;
@@ -42,6 +47,10 @@ public class Carteira {
 
 	public Long getId() {
 		return id;
+	}
+
+	public Cartao getCartao() {
+		return cartao;
 	}
 
 }
