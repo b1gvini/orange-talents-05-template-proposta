@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.associacartao.AssociaCartaoFeignResponse;
+import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.associacarteira.AssociaCarteiraFeignRequest;
+import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.associacarteira.AssociaCarteiraFeignResponse;
 import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.avisoviagem.AvisoDeViagemFeignRequest;
 import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.avisoviagem.AvisoDeViagemFeignResponse;
 import br.com.zupacademy.vinicius.propostazup.feignclients.apicartao.bloqueiocartao.BloqueioCartaoFeignRequest;
@@ -23,5 +25,8 @@ public interface ApiCartaoFeignClient {
 	//Aviso de viagem.
 	@RequestMapping(method = RequestMethod.POST, path = "${api.busca.cartao}/{id}/avisos")
 	AvisoDeViagemFeignResponse avisaViagem(@PathVariable("id") String id, AvisoDeViagemFeignRequest request);
+	
+	@RequestMapping(method = RequestMethod.POST, path = "${api.busca.cartao}/{id}/carteiras")
+	AssociaCarteiraFeignResponse associaCarteira(@PathVariable("id") String id, AssociaCarteiraFeignRequest request);
 	
 }
