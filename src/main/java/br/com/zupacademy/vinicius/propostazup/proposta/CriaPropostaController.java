@@ -23,6 +23,8 @@ import br.com.zupacademy.vinicius.propostazup.metricas.MetricasPropostas;
 import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseFeignRequest;
 import br.com.zupacademy.vinicius.propostazup.feignclients.analiseproposta.AnaliseFeignResponse;
 import feign.FeignException.UnprocessableEntity;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 
 @RestController
 public class CriaPropostaController {
@@ -34,6 +36,9 @@ public class CriaPropostaController {
 	private AnalisePropostaFeignClient analiseFinanceiro;
 	
 	@Autowired
+	private Tracer tracer;
+	
+	@Autowired
 	private MetricasPropostas metricas;
 
 	@PostMapping("/propostas")
@@ -41,6 +46,12 @@ public class CriaPropostaController {
 			UriComponentsBuilder uriComponentsBuilder)
 			throws ExcecaoGenerica, JsonMappingException, JsonProcessingException {
 
+		//COMECO TRACING TEST
+		Span activeSpan = tracer.activeSpan();
+		activeSpan.setTag("tag.teste", "testando criacao de tag");
+		activeSpan.setBaggageItem("Teste do bagage", "Qual o propósito do baggage?");
+		activeSpan.log("Log do tracing");
+		//FIM TRACING
 		Optional<Proposta> possivelProposta = repository.findByDocumento(request.getDocumento());
 		if (possivelProposta.isPresent()) {
 			throw new ExcecaoGenerica("CPF ou CNPJ já existe", HttpStatus.UNPROCESSABLE_ENTITY);
