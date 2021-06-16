@@ -43,7 +43,7 @@ public class Proposta {
 
 	public Proposta(@NotBlank String documento, @NotBlank String nome, @Email @NotBlank String email,
 			@NotBlank String endereco, @NotNull BigDecimal salario) {
-		this.documento = documento;
+		this.documento = CriptografarDocumentoProposta.criptografar(documento);
 		this.nome = nome;
 		this.email = email;
 		this.endereco = endereco;

@@ -52,7 +52,7 @@ public class CriaPropostaController {
 		activeSpan.setBaggageItem("Teste do bagage", "Qual o propósito do baggage?");
 		activeSpan.log("Log do tracing");
 		//FIM TRACING
-		Optional<Proposta> possivelProposta = repository.findByDocumento(request.getDocumento());
+		Optional<Proposta> possivelProposta = repository.findByDocumento(CriptografarDocumentoProposta.criptografar(request.getDocumento()));
 		if (possivelProposta.isPresent()) {
 			throw new ExcecaoGenerica("CPF ou CNPJ já existe", HttpStatus.UNPROCESSABLE_ENTITY);
 		}
